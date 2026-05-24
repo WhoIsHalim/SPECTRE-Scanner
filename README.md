@@ -8,7 +8,24 @@
 
 Developed by [Halim](https://github.com/WhoIsHalim).
 
-## Features
+---
+
+## 📸 Screenshots
+
+*(You can add your actual screenshots to the `screenshots/` folder later and they will appear here)*
+
+### Main Menu
+![Main Menu](screenshots/menu.png)
+
+### Scanning in Progress
+![Scan Progress](screenshots/scan.png)
+
+### Viewing Statistics
+![Statistics](screenshots/stats.png)
+
+---
+
+## ✨ Features
 
 - 🚀 **High Performance:** Completely asynchronous (Non-blocking I/O).
 - 🧠 **Smart Memory Management:** Uses streaming IP architecture to prevent RAM exhaustion on massive subnets.
@@ -19,7 +36,9 @@ Developed by [Halim](https://github.com/WhoIsHalim).
 - 💻 **Cross-Platform:** Beautiful Terminal UI that works flawlessly on both Windows and Linux.
 - 🚦 **Rate Limiting:** Built-in connection throttlers (`asyncio.Semaphore`) to avoid socket exhaustion.
 
-## Installation
+---
+
+## ⚙️ Installation
 
 1. Clone the repository:
    ```bash
@@ -32,29 +51,47 @@ Developed by [Halim](https://github.com/WhoIsHalim).
    pip install -r requirements.txt
    ```
 
-## Usage
+---
+
+## 📖 Detailed Usage Guide
 
 Run the main file to launch the interactive Terminal UI:
-
 ```bash
 python main.py
 ```
 
-### Main Menu
-- **[1] Start Scan**: Choose between a **Full Scan** (saves all open ports) or a **Custom Scan** (filters results based on `filter.txt`).
-- **[2] Edit Config**: View paths for the configuration files (`config.yaml`, `ip_ranges.txt`, `ports.txt`, `fingerprints.json`, `filter.txt`).
-- **[3] Show Statistics**: View the size and status of your generated reports.
+Upon launching the tool for the first time, a `config/` directory is automatically generated containing default configuration files.
 
-### Configuration Files
+### 1. Preparing Your Targets
+Before starting a scan, you need to tell SPECTRE what to look for. Select **[2] Edit Config** from the menu or open the `config/` folder directly to modify these files:
 
-On the first run, SPECTRE will automatically generate a `config/` directory with the following default files:
+- **`config/ip_ranges.txt`**: Add your targets here. You can add single IPs (e.g., `192.168.1.1`) or entire CIDR blocks (e.g., `10.0.0.0/16`). SPECTRE processes these one by one to save memory.
+- **`config/ports.txt`**: Define the ports you want to scan. You can specify individual ports (e.g., `80, 443`) or ranges (e.g., `8080-8090`).
+- **`config/fingerprints.json`**: This is the brain of the scanner. Add regex patterns here to detect specific software versions from banners or HTTP titles.
 
-- `ip_ranges.txt`: Add your target IPs or CIDRs here (one per line).
-- `ports.txt`: Specify ports to scan (e.g., `80,443,8080-8090`).
-- `config.yaml`: Global settings for concurrency, timeouts, and active reporting modules.
-- `fingerprints.json`: Define your custom regex signatures for deep service discovery.
-- `filter.txt`: A list of substrings to match against when running a "Custom Scan".
+### 2. Starting a Scan
+Select **[1] Start Scan** from the main menu. You will be prompted to choose a scan mode:
 
-## License
+- **[1] Full Scan:** 
+  The scanner will attempt to connect to all specified targets and ports. Every open port, grabbed banner, and discovered HTTP service will be saved to your reports.
+  
+- **[2] Custom Scan:** 
+  In this mode, SPECTRE acts like a sniper. It will read the keywords you placed in **`config/filter.txt`** (e.g., "Apache", "Mikrotik", "Router"). If a scanned target's banner or title contains any of these keywords, it gets saved. If it doesn't, it is ignored and dropped. This is incredibly useful for targeted hunting.
+
+### 3. Graceful Shutdown
+During any scan, if you need to stop, simply press `CTRL+C`. SPECTRE handles this gracefully—it stops fetching new targets, safely closes existing connections, and saves all data gathered up to that point without corruption.
+
+### 4. Viewing Results & Statistics
+All discovered data is saved automatically in the `reports/` folder in four different formats:
+- `report.txt` (Human readable)
+- `report.json` (For automation pipelines)
+- `report.csv` (For spreadsheet analysis)
+- `report.db` (SQLite database for SQL querying)
+
+You can select **[3] Show Statistics** from the main menu at any time to see the file sizes and verify how much data has been gathered.
+
+---
+
+## 📜 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

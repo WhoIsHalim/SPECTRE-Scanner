@@ -1,0 +1,14 @@
+http:
+  enabled: true
+  follow_redirects: true
+  user_agent: SPECTRE Scanner/3.0
+reporting:
+  csv: true
+  json: true
+  output_dir: reports
+  sqlite: true
+  txt: true
+scanner:
+  concurrency: 1000
+  max_retries: 1
+  timeout: 5.0

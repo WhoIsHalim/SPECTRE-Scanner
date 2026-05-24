@@ -1,0 +1,16 @@
+[
+    {
+        "name": "OpenSSH",
+        "regex": "SSH-2\\\\.0-OpenSSH[\\\\s_]([\\\\d\\\\.]+)",
+        "protocol": "tcp",
+        "severity": "info",
+        "weight": 100
+    },
+    {
+        "name": "Apache Web Server",
+        "regex": "(?i)Server:\\\\s*Apache/([\\\\d\\\\.]+)",
+        "protocol": "http",
+        "severity": "info",
+        "weight": 100
+    }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "name": "jenkins",
+    "patterns": [
+      "x-jenkins",
+      "jenkins"
+    ],
+    "weight": 80,
+    "severity": "medium"
+  },
+  {
+    "name": "kibana",
+    "patterns": [
+      "kibana",
+      "elastic"
+    ],
+    "weight": 70,
+    "severity": "high"
+  }
+]

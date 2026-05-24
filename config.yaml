@@ -1,0 +1,12 @@
+workers: 1000
+http_timeout: 5
+banner_timeout: 3
+rate_limit: 1000
+max_connections: 5000
+http_user_agent: "SPECTRE/3.0"
+json_output: true
+csv_output: true
+sqlite_output: true
+screenshot_enabled: false
+follow_redirects: true
+verify_ssl: false
